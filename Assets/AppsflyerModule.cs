@@ -157,19 +157,19 @@ public class AppsflyerModule
         {
             case AppsflyerRequestType.FIRST_OPEN_REQUEST:
                 url = isSandbox
-                    ? "https://sandbox-events.appsflyer.com/v1.0/c2s/first_open/app/nativepc/"
+                    ? "https://sandbox-events.appsflyer.com/v1.0/c2s/first_open/app/quest/"
                         + appid
-                    : "https://events.appsflyer.com/v1.0/c2s/first_open/app/nativepc/" + appid;
+                    : "https://events.appsflyer.com/v1.0/c2s/first_open/app/quest/" + appid;
                 break;
             case AppsflyerRequestType.SESSION_REQUEST:
                 url = isSandbox
-                    ? "https://sandbox-events.appsflyer.com/v1.0/c2s/session/app/nativepc/" + appid
-                    : "https://events.appsflyer.com/v1.0/c2s/session/app/nativepc/" + appid;
+                    ? "https://sandbox-events.appsflyer.com/v1.0/c2s/session/app/quest/" + appid
+                    : "https://events.appsflyer.com/v1.0/c2s/session/app/quest/" + appid;
                 break;
             case AppsflyerRequestType.INAPP_EVENT_REQUEST:
                 url = isSandbox
-                    ? "https://sandbox-events.appsflyer.com/v1.0/c2s/inapp/app/nativepc/" + appid
-                    : "https://events.appsflyer.com/v1.0/c2s/inapp/app/nativepc/" + appid;
+                    ? "https://sandbox-events.appsflyer.com/v1.0/c2s/inapp/app/quest/" + appid
+                    : "https://events.appsflyer.com/v1.0/c2s/inapp/app/quest/" + appid;
                 break;
             default:
                 url = null;
@@ -200,18 +200,25 @@ public class AppsflyerModule
         switch (REQ_TYPE)
         {
             case AppsflyerRequestType.FIRST_OPEN_REQUEST:
-                Debug.Log("Request type: FIRST_OPEN_REQUEST");
+                Debug.Log("Request type 1: FIRST_OPEN_REQUEST");
+                Debug.Log("Is success 1: " + uwr.result);
+                Debug.Log("Response Code 1: " + uwr.responseCode);
                 break;
             case AppsflyerRequestType.SESSION_REQUEST:
-                Debug.Log("Request type: SESSION_REQUEST");
+                Debug.Log("Request type 2: SESSION_REQUEST");
+                Debug.Log("Is success 2: " + uwr.result);
+                Debug.Log("Response Code 2: " + uwr.responseCode);
                 PlayerPrefs.SetInt("af_counter", af_counter);
                 break;
             case AppsflyerRequestType.INAPP_EVENT_REQUEST:
-                Debug.Log("Request type: INAPP_EVENT_REQUEST");
+                Debug.Log("Request type 3: INAPP_EVENT_REQUEST");
+                Debug.Log("Is success 3: " + uwr.result);
+                Debug.Log("Response Code 3: " + uwr.responseCode);
                 break;
         }
-        Debug.Log("Is success: " + uwr.result);
-        Debug.Log("Response Code: " + uwr.responseCode);
+
+        Debug.Log("af_counter: " + af_counter);
+        
         string resCode = uwr.responseCode.ToString();
 
         if (uwr.result == UnityWebRequest.Result.ConnectionError)

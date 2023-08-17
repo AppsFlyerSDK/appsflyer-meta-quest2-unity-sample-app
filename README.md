@@ -1,23 +1,28 @@
 ---
-title: Native PC Unity
+title: Meta Quest Unity
 parentDoc: 64ad6456ceede10cf0b2a120
 category: 6446526dddf659006c7ea807
 order: 1
 hidden: false
-slug: unity-nativepc
+slug: meta-quest2-unity
 ---
 
 > Link to repository  
-> [GitHub](https://github.com/AppsFlyerSDK/appsflyer-native-pc-unity-sample-app)
+> [GitHub](https://github.com/AppsFlyerSDK/appsflyer-meta-quest2-unity-sample-app)
 
-## AppsFlyer Native PC Unity SDK integration
+## AppsFlyer Meta Quest Unity SDK integration
 
 AppsFlyer empowers gaming marketers to make better decisions by providing powerful tools to perform cross-platform attribution.
 
 Game attribution requires the game to integrate the AppsFlyer SDK that records first opens, consecutive sessions, and in-app events. For example, purchase events.
-We recommend you use this sample app as a reference for integrating the AppsFlyer SDK into your Unity Native PC game.
+We recommend you use this sample app as a reference for integrating the AppsFlyer SDK into your Unity Meta Quest game.
 
 <hr/>
+
+## Prerequisites
+- Unity 2021.3.16f1
+- The Oculus SDK - follow the [Oculus SDK for Unity integration guide](https://developer.oculus.com/documentation/unity/unity-import/).
+- Oculus Quest 2 Headset
 
 ## AppsflyerModule - Interface
 
@@ -37,16 +42,16 @@ AppsflyerModule(string devkey, string appid, MonoBehaviour mono, bool isSandbox 
 
 ```c#
 // for regular init
-AppsflyerModule afm = new AppsflyerModule(<< DEV_KEY >>, << APP_ID >>, this);
+AppsflyerModule afm = new AppsflyerModule(<< DEV_KEY >>, << QUEST_APP_ID >>, this);
 
 // for init in sandbox mode (reports the events to the sandbox endpoint)
-AppsflyerModule afm = new AppsflyerModule(<< DEV_KEY >>, << APP_ID >>, this, true);
+AppsflyerModule afm = new AppsflyerModule(<< DEV_KEY >>, << QUEST_APP_ID >>, this, true);
 ```
 
 **Arguments**:
 
 - `DEV_KEY`: Get from the marketer or [AppsFlyer HQ](https://support.appsflyer.com/hc/en-us/articles/211719806-App-settings-#general-app-settings).
-- `APP_ID`: The app id on Appsflyer HQ
+- `QUEST_APP_ID`: Your Quest Store app ID (For Quest 2, it's the number in the store URL - for example: https://www.oculus.com/experiences/quest/XXXXXXXXXXXXXXXX/).
 
 ### Start
 
@@ -134,7 +139,7 @@ void GetAppsFlyerUID()
 **Usage**:
 
 ```c#
-AppsflyerModule afm = new AppsflyerModule(<< DEV_KEY >>, << APP_ID >>, this);
+AppsflyerModule afm = new AppsflyerModule(<< DEV_KEY >>, << QUEST_APP_ID >>, this);
 afm.Start();
 string af_uid = afm.GetAppsFlyerUID();
 ```
@@ -142,23 +147,23 @@ string af_uid = afm.GetAppsFlyerUID();
 ## Running the sample app
 
 1. Open Unity hub and open the project.
-2. Use the sample code in AppsflyerScript.cs and update it with your DEV_KEY and APP_ID.
+2. Use the sample code in AppsflyerScript.cs and update it with your DEV_KEY and QUEST_APP_ID.
 3. Add the AppsflyerScript to an empty game object (or use the one in the scenes folder):  
    ![Request-OK](https://files.readme.io/b271553-small-EpicGameObject.PNG)
 4. Launch the sample app via the Unity editor and check that your debug log shows the following message:  
    ![Request-OK](https://files.readme.io/7105a10-small-202OK.PNG)
 5. After 24 hours, the AppsFlyer dashboard updates and shows organic and non-organic installs and in-app events.
 
-## Implementing AppsFlyer in your Native PC game
+## Implementing AppsFlyer in your Meta Quest game
 
 ### Setup
 
 1. Add the script from `Assets/AppsflyerModule.cs` to your app.
-2. Use the sample code in `Assets/AppsflyerScript.cs` and update it with your `DEV_KEY` and `APP_ID`.
+2. Use the sample code in `Assets/AppsflyerScript.cs` and update it with your `DEV_KEY` and `QUEST_APP_ID`.
 3. Initialize the SDK.
 
 ```c#
-AppsflyerModule afm = new AppsflyerModule(<< DEV_KEY >>, << APP_ID >>, this);
+AppsflyerModule afm = new AppsflyerModule(<< DEV_KEY >>, << QUEST_APP_ID >>, this);
 ```
 
 6. [Start](#start) the AppsFlyer integration.
