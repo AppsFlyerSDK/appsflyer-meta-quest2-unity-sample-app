@@ -1,5 +1,5 @@
 ---
-title: Meta Quest Unity
+title: Meta Quest 2 Unity
 parentDoc: 64e60f96a147a4004b5543e2
 category: 6446526dddf659006c7ea807
 order: 1
