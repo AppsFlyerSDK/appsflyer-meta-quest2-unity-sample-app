@@ -15,6 +15,8 @@ public class AppsflyerModule
     private string appid { get; }
     private int af_counter { get; set; }
     private string af_device_id { get; }
+    private string cuid { get; set; }
+    private bool isStopped { get; set; }
     private MonoBehaviour mono { get; }
 
     public AppsflyerModule(string devkey, string appid, MonoBehaviour mono, bool isSandbox = false)
@@ -23,6 +25,7 @@ public class AppsflyerModule
         this.devkey = devkey;
         this.appid = appid;
         this.mono = mono;
+        this.isStopped = true;
 
         this.af_counter = PlayerPrefs.GetInt("af_counter");
         // Debug.Log("af_counter: " + af_counter);
@@ -56,7 +59,9 @@ public class AppsflyerModule
             app_version = "1.0.0", //TODO: Insert your app version
             device_ids = deviceids,
             request_id = GenerateGuid(),
-            limit_ad_tracking = false
+            limit_ad_tracking = false,
+            customer_user_id = cuid
+
         };
         return req;
     }
@@ -84,6 +89,7 @@ public class AppsflyerModule
     // report first open event to AppsFlyer (or session if counter > 2)
     public void Start(bool skipFirst = false)
     {
+        this.isStopped = false;
         // generating the request data
         RequestData req = CreateRequestData();
 
@@ -97,9 +103,21 @@ public class AppsflyerModule
         mono.StartCoroutine(SendUnityPostReq(req, REQ_TYPE));
     }
 
+    public void Stop()
+    {
+        isStopped = true;
+        Debug.LogWarning("Appsflyer SDK has been stopped.");
+    }
+
     // report inapp event to AppsFlyer
     public void LogEvent(string event_name, Dictionary<string, object> event_parameters)
     {
+        if (isStopped)
+        {
+            Debug.LogWarning("Cannot send LogEvent, the Appsflyer SDK is stopped");
+            return;
+        }
+
         // generating the request data
         RequestData req = CreateRequestData();
         // setting the event name and value
@@ -135,6 +153,17 @@ public class AppsflyerModule
     public string GetAppsFlyerUID()
     {
         return this.af_device_id;
+    }
+
+    public void SetCustomerUserId(string cuid)
+    {
+        if (!isStopped)
+        {
+            Debug.LogWarning("CUID Error: Cannot set CustomerUserID while the SDK has started.");
+            return;
+        }
+        Debug.Log("CUID Log: Customer User ID has been set");
+        this.cuid = cuid;
     }
 
     // send post request with Unity HTTP Client
@@ -208,7 +237,6 @@ public class AppsflyerModule
                 Debug.Log("Request type 2: SESSION_REQUEST");
                 Debug.Log("Is success 2: " + uwr.result);
                 Debug.Log("Response Code 2: " + uwr.responseCode);
-                PlayerPrefs.SetInt("af_counter", af_counter);
                 break;
             case AppsflyerRequestType.INAPP_EVENT_REQUEST:
                 Debug.Log("Request type 3: INAPP_EVENT_REQUEST");
@@ -218,7 +246,6 @@ public class AppsflyerModule
         }
 
         Debug.Log("af_counter: " + af_counter);
-        
         string resCode = uwr.responseCode.ToString();
 
         if (uwr.result == UnityWebRequest.Result.ConnectionError)
@@ -296,6 +323,7 @@ class RequestData
     public DeviceIDs[] device_ids;
     public string request_id;
     public bool limit_ad_tracking;
+    public string customer_user_id;
     public string event_name;
     public Dictionary<string, object> event_parameters;
 }
