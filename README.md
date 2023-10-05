@@ -74,6 +74,26 @@ bool skipFirst = [SOME_CONDITION];
 afm.Start(skipFirst);
 ```
 
+### Stop
+
+This method stops the SDK from functioning and communicating with AppsFlyer servers. It's used when implementing user opt-in/opt-out.
+
+**Method signature**
+
+```c#
+void Stop()
+```
+
+**Usage**:
+
+```c#
+// Starting the SDK
+afm.Start();
+// ...
+// Stopping the SDK, preventing further communication with AppsFlyer
+afm.Stop();
+```
+
 ### LogEvent
 
 This method receives an event name and JSON object and sends an in-app event to AppsFlyer.
@@ -96,6 +116,26 @@ event_parameters.Add("af_price", 6.66);
 event_parameters.Add("af_revenue", 12.12);
 // send logEvent request
 afm.LogEvent(event_name, event_parameters);
+```
+
+
+### SetCustomerUserId
+
+This method sets a customer ID that enables you to cross-reference your unique ID with the AppsFlyer unique ID and other device IDs. Note: You can only use this method before calling `Start()`.
+The customer ID is available in raw data reports and in the postbacks sent via API.
+
+**Method signature**
+
+```c++
+void SetCustomerUserId(string cuid)
+```
+
+**Usage**:
+
+```c++
+AppsflyerModule afm = new AppsflyerModule(<< DEV_KEY >>, << QUEST_APP_ID >>, this);
+afm.SetCustomerUserId("TestCUID");
+afm.Start();
 ```
 
 ### IsInstallOlderThanDate
