@@ -52,6 +52,7 @@ AppsflyerModule afm = new AppsflyerModule(<< DEV_KEY >>, << QUEST_APP_ID >>, thi
 
 - `string DEV_KEY`: Get from the marketer or [AppsFlyer HQ](https://support.appsflyer.com/hc/en-us/articles/211719806-App-settings-#general-app-settings).
 - `string QUEST_APP_ID`: Your Quest Store app ID (For Quest 2, it's the number in the store URL - for example: https://www.oculus.com/experiences/quest/XXXXXXXXXXXXXXXX/).
+- `MonoBehaviour mono`: the parent MonoBehaviour.
 - `bool isSandbox`: Whether to activate sandbox mode. False by default. This option is for debugging. With the sandbox mode, AppsFlyer dashboard does not show the data. 
 
 ### Start
