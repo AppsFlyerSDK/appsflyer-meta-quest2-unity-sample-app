@@ -52,5 +52,6 @@
         "temp/":true,
         "Temp/":true
     },
-    "dotnet.defaultSolution": "appsflyer-meta-quest2-unity-sample-app.sln"
+    "dotnet.defaultSolution": "appsflyer-meta-quest2-unity-sample-app.sln",
+    "dotnet.preferCSharpExtension": true
 }

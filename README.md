@@ -38,6 +38,13 @@ This method receives your API key, App ID, the parent MonoBehaviour and a sandbo
 AppsflyerModule(string devkey, string appid, MonoBehaviour mono, bool isSandbox = false)
 ```
 
+**Arguments**:
+
+- `string DEV_KEY`: Get from the marketer or [AppsFlyer HQ](https://support.appsflyer.com/hc/en-us/articles/211719806-App-settings-#general-app-settings).
+- `string QUEST_APP_ID`: Your Quest Store app ID (For Quest 2, it's the number in the store URL - for example: https://www.oculus.com/experiences/quest/XXXXXXXXXXXXXXXX/).
+- `MonoBehaviour mono`: the parent MonoBehaviour.
+- `bool isSandbox`: Whether to activate sandbox mode. False by default. This option is for debugging. With the sandbox mode, AppsFlyer dashboard does not show the data. 
+
 **Usage**:
 
 ```c#
@@ -47,13 +54,6 @@ AppsflyerModule afm = new AppsflyerModule(<< DEV_KEY >>, << QUEST_APP_ID >>, thi
 // for init in sandbox mode (reports the events to the sandbox endpoint)
 AppsflyerModule afm = new AppsflyerModule(<< DEV_KEY >>, << QUEST_APP_ID >>, this, true);
 ```
-
-**Arguments**:
-
-- `string DEV_KEY`: Get from the marketer or [AppsFlyer HQ](https://support.appsflyer.com/hc/en-us/articles/211719806-App-settings-#general-app-settings).
-- `string QUEST_APP_ID`: Your Quest Store app ID (For Quest 2, it's the number in the store URL - for example: https://www.oculus.com/experiences/quest/XXXXXXXXXXXXXXXX/).
-- `MonoBehaviour mono`: the parent MonoBehaviour.
-- `bool isSandbox`: Whether to activate sandbox mode. False by default. This option is for debugging. With the sandbox mode, AppsFlyer dashboard does not show the data. 
 
 ### Start
 
@@ -102,9 +102,19 @@ This method receives an event name and JSON object and sends an in-app event to 
 
 **Method signature**
 
+```c#
+void LogEvent(
+      string event_name,
+      Dictionary<string, object> event_parameters,
+      Dictionary<string, object> event_custom_parameters = null
+   )
 ```
-void LogEvent(string event_name, Dictionary<string, object> event_parameters)
-```
+
+**Arguments**:
+
+- `string event_name`: the name of the event.
+- `Dictionary<string, object> event_parameters`: dictionary object which contains the [predefined event parameters](https://dev.appsflyer.com/hc/docs/ctv-log-event-event-parameters).
+- `Dictionary<string, object> event_custom_parameters`: (non-mandatory): dictionary object which contains the any custom event parameters.
 
 **Usage**:
 
@@ -118,6 +128,11 @@ event_parameters.Add("af_price", 6.66);
 event_parameters.Add("af_revenue", 12.12);
 // send logEvent request
 afm.LogEvent(event_name, event_parameters);
+
+// send logEvent request with custom params
+Dictionary<string, object> event_custom_parameters = new Dictionary<string, object>();
+event_custom_parameters.Add("goodsName", "新人邀约购物日");
+afm.LogEvent(event_name, event_parameters, event_custom_parameters);
 ```
 
 
