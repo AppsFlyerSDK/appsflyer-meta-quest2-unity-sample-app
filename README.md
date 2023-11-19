@@ -21,7 +21,7 @@ We recommend you use this sample app as a reference for integrating the AppsFlye
 
 ## Prerequisites
 - Unity 2021.3.16f1
-- The Oculus SDK - follow the [Oculus SDK for Unity integration guide](https://developer.oculus.com/documentation/unity/unity-import/).
+- The Oculus SDK - follow the [Oculus SDK for Unity integration guide](https://developer.oculus.com/documentation/unity/unity-gs-overview/).
 - Oculus Quest 2 Headset
 
 ## AppsflyerModule - Interface
