@@ -12,17 +12,16 @@ slug: meta-quest2-unity
 
 ## AppsFlyer Meta Quest Unity SDK integration
 
-AppsFlyer empowers gaming marketers to make better decisions by providing powerful tools to perform cross-platform attribution.
+Integrate your Meta Quest Unity app or game with AppsFlyer to measure the performance of campaigns marketing these apps.
 
-Game attribution requires the game to integrate the AppsFlyer SDK that records first opens, consecutive sessions, and in-app events. For example, purchase events.
-We recommend you use this sample app as a reference for integrating the AppsFlyer SDK into your Unity Meta Quest game.
+Game attribution and user measurement require the game to integrate an AppsFlyer SDK that records first opens, sessions, and in-app events. For example, purchase events.
 
 <hr/>
 
 ## Prerequisites
 - Unity 2021.3.16f1
-- The Oculus SDK - follow the [Oculus SDK for Unity integration guide](https://developer.oculus.com/documentation/unity/unity-gs-overview/).
-- Oculus Quest 2 Headset
+- The Oculus SDK: Follow the [Oculus SDK for Unity integration guide](https://developer.oculus.com/documentation/unity/unity-gs-overview/).
+- Oculus Quest 2/3 Headset
 
 ## AppsflyerModule - Interface
 
@@ -30,7 +29,7 @@ We recommend you use this sample app as a reference for integrating the AppsFlye
 
 ### AppsflyerModule
 
-This method receives your API key, App ID, the parent MonoBehaviour and a sandbox mode flag (optional, false by default) and initializes the AppsFlyer Module.
+This method receives your API key, App ID, the parent MonoBehaviour and a sandbox mode flag (optional, false by default), and initializes the AppsFlyer Module.
 
 **Method signature**
 
@@ -41,9 +40,9 @@ AppsflyerModule(string devkey, string appid, MonoBehaviour mono, bool isSandbox 
 **Arguments**:
 
 - `string DEV_KEY`: Get from the marketer or [AppsFlyer HQ](https://support.appsflyer.com/hc/en-us/articles/211719806-App-settings-#general-app-settings).
-- `string QUEST_APP_ID`: Your Quest Store app ID (For Quest 2, it's the number in the store URL - for example: https://www.oculus.com/experiences/quest/XXXXXXXXXXXXXXXX/).
-- `MonoBehaviour mono`: the parent MonoBehaviour.
-- `bool isSandbox`: Whether to activate sandbox mode. False by default. This option is for debugging. With the sandbox mode, AppsFlyer dashboard does not show the data. 
+- `string QUEST_APP_ID`: Your Quest Store app ID. For Quest 2/3, this is the number in the store URL. For example: https://www.oculus.com/experiences/quest/XXXXXXXXXXXXXXXX/.
+- `MonoBehaviour mono`: The parent MonoBehaviour.
+- `bool isSandbox`: Flag that determines whether to activate sandbox mode. False by default. This option is for debugging. With the sandbox mode, AppsFlyer dashboard doesn't show the data. 
 
 **Usage**:
 
@@ -112,9 +111,9 @@ void LogEvent(
 
 **Arguments**:
 
-- `string event_name`: the name of the event.
-- `Dictionary<string, object> event_parameters`: dictionary object which contains the [predefined event parameters](https://dev.appsflyer.com/hc/docs/ctv-log-event-event-parameters).
-- `Dictionary<string, object> event_custom_parameters`: (non-mandatory): dictionary object which contains the any custom event parameters.
+- `string event_name`: The name of the event.
+- `Dictionary<string, object> event_parameters`: Dictionary object that contains the [predefined event parameters](https://dev.appsflyer.com/hc/docs/ctv-log-event-event-parameters).
+- `Dictionary<string, object> event_custom_parameters`: [Optional] Dictionary object which contains the any custom event parameters.
 
 **Usage**:
 
@@ -138,7 +137,7 @@ afm.LogEvent(event_name, event_parameters, event_custom_parameters);
 
 ### SetCustomerUserId
 
-This method sets a customer ID that enables you to cross-reference your unique ID with the AppsFlyer unique ID and other device IDs. Note: You can only use this method before calling `Start()`.
+This method sets a customer ID that enables you to cross-reference your unique ID with the AppsFlyer unique ID and other device IDs. **Note**: You can only use this method before calling `Start()`.
 The customer ID is available in raw data reports and in the postbacks sent via API.
 
 **Method signature**
@@ -157,7 +156,7 @@ afm.Start();
 
 ### IsInstallOlderThanDate
 
-This method receives a date string and returns true if the game folder creation date is older than the date string. The date string format is: "2023-03-01T23:12:34+00:00"
+This method receives a date string and returns true if the game folder creation date is older than the date string. The date string format is: "2023-03-01T23:12:34+00:00".
 
 **Method signature**
 
@@ -185,7 +184,7 @@ afm.Start(!IsInstallOlderThanDate);
 
 ### GetAppsFlyerUID
 
-Get AppsFlyer's unique device ID. The SDK generates an AppsFlyer unique device ID upon app installation. When the SDK is started, this ID is recorded as the ID of the first app install.
+Get the AppsFlyer unique device ID. The SDK generates an AppsFlyer unique device ID upon app installation. When the SDK is started, this ID is recorded as the ID of the first app install.
 
 **Method signature**
 
@@ -204,10 +203,10 @@ string af_uid = afm.GetAppsFlyerUID();
 ## Running the sample app
 
 1. Open Unity hub and open the project.
-2. Use the sample code in AppsflyerScript.cs and update it with your DEV_KEY and QUEST_APP_ID.
-3. Add the AppsflyerScript to an empty game object (or use the one in the scenes folder):  
+2. Use the sample code in `AppsflyerScript.cs` and update it with your DEV_KEY and QUEST_APP_ID.
+3. Add the AppsflyerScript to an empty game object (or use the one in the scenes folder).
    ![Request-OK](https://files.readme.io/b271553-small-EpicGameObject.PNG)
-4. Launch the sample app via the Unity editor and check that your debug log shows the following message:  
+4. Launch the sample app via the Unity editor and check that your debug log shows the following messages:  
    ![Request-OK](https://files.readme.io/7105a10-small-202OK.PNG)
 5. After 24 hours, the AppsFlyer dashboard updates and shows organic and non-organic installs and in-app events.
 
@@ -228,5 +227,5 @@ AppsflyerModule afm = new AppsflyerModule(<< DEV_KEY >>, << QUEST_APP_ID >>, thi
 
 ## Resetting the attribution
 
-[Delete the PlayerPrefs data the registry/preferences folder](https://docs.unity3d.com/ScriptReference/PlayerPrefs.html), or use [PlayerPrefs.DeleteAll()](https://docs.unity3d.com/2020.1/Documentation/ScriptReference/PlayerPrefs.DeleteAll.html) when testing the attribution in the UnityEditor.
+[Delete the PlayerPrefs data in the registry/preferences folder](https://docs.unity3d.com/ScriptReference/PlayerPrefs.html), or use the [PlayerPrefs.DeleteAll()](https://docs.unity3d.com/2020.1/Documentation/ScriptReference/PlayerPrefs.DeleteAll.html) function when testing the attribution in the UnityEditor.
 ![AF guid & counter in the Windows Registry](https://files.readme.io/51b1681-image.png)
