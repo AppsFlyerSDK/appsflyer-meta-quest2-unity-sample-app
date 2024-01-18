@@ -286,6 +286,8 @@ public class AppsflyerModule
                 Debug.Log("error detail: " + uwr.downloadHandler.text);
             }
         }
+
+        uwr.Dispose();
     }
 
     // generate GUID for post request and AF id
